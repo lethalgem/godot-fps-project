@@ -140,7 +140,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 
-[node name="Reticle" type="CenterContainer" parent="Control"]
+[node name="Reticle" type="CenterContainer" parent="Control" node_paths=PackedStringArray("RETICLE_LINES", "PLAYER_CONTROLLER")]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -154,6 +154,10 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("3_qgjqi")
+RETICLE_LINES = [NodePath("Top"), NodePath("Right"), NodePath("Bottom"), NodePath("Left")]
+PLAYER_CONTROLLER = NodePath("../..")
+RETICLE_SPEED = 0.5
+RETICLE_DISTANCE = 6.0
 
 [node name="Top" type="Line2D" parent="Control/Reticle"]
 position = Vector2(2.08165e-12, 2.08165e-12)
