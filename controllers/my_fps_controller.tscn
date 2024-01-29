@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://c7widt1lw44j6"]
+[gd_scene load_steps=10 format=3 uid="uid://c7widt1lw44j6"]
 
 [ext_resource type="Material" uid="uid://b4gwd5h7ixvct" path="res://materials/player.tres" id="1_31uqo"]
 [ext_resource type="Script" path="res://controllers/my_fps_controller.gd" id="1_iam7r"]
+[ext_resource type="Script" path="res://controllers/reticle.gd" id="3_qgjqi"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_6y6ct"]
 
@@ -129,5 +130,49 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 1.5, 2.08165e-12
 shape = SubResource("SphereShape3D_ib66s")
 target_position = Vector3(2.08165e-12, 0.5, 2.08165e-12)
 debug_shape_custom_color = Color(0, 0.894118, 0, 1)
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="Reticle" type="CenterContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_qgjqi")
+
+[node name="Top" type="Line2D" parent="Control/Reticle"]
+position = Vector2(2.08165e-12, 2.08165e-12)
+points = PackedVector2Array(2.08165e-12, -5, 2.08165e-12, -15)
+width = 2.0
+
+[node name="Right" type="Line2D" parent="Control/Reticle"]
+position = Vector2(2.08165e-12, 2.08165e-12)
+points = PackedVector2Array(5, 2.08165e-12, 15, 2.08165e-12)
+width = 2.0
+
+[node name="Bottom" type="Line2D" parent="Control/Reticle"]
+position = Vector2(2.08165e-12, 2.08165e-12)
+points = PackedVector2Array(2.08165e-12, 5, 2.08165e-12, 15)
+width = 2.0
+
+[node name="Left" type="Line2D" parent="Control/Reticle"]
+position = Vector2(2.08165e-12, 2.08165e-12)
+points = PackedVector2Array(-5, 2.08165e-12, -15, 2.08165e-12)
+width = 2.0
 
 [connection signal="animation_started" from="AnimationPlayer" to="." method="_on_animation_player_animation_started"]
