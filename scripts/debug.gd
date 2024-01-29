@@ -17,7 +17,7 @@ func _process(delta):
 	if visible:
 		# Use delta time to get approx frames per second and round to two decimal places !Disable Vsync if fps is stuck at 60!
 		frames_per_second = "%.2f" % (1.0 / delta)
-		add_property("FPS", frames_per_second, 2)
+		add_property("FPS", frames_per_second, 0)
 
 
 func _input(event):
