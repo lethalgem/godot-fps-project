@@ -1,8 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://c7widt1lw44j6"]
+[gd_scene load_steps=12 format=3 uid="uid://c7widt1lw44j6"]
 
 [ext_resource type="Material" uid="uid://b4gwd5h7ixvct" path="res://materials/player.tres" id="1_31uqo"]
 [ext_resource type="Script" path="res://controllers/my_fps_controller.gd" id="1_iam7r"]
 [ext_resource type="Script" path="res://controllers/reticle.gd" id="3_qgjqi"]
+[ext_resource type="Theme" uid="uid://bafg6ukv5y75k" path="res://ui/theme/debug.tres" id="4_ov56a"]
+[ext_resource type="Script" path="res://controllers/debug.gd" id="5_i4a1r"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_6y6ct"]
 
@@ -131,7 +133,7 @@ shape = SubResource("SphereShape3D_ib66s")
 target_position = Vector3(2.08165e-12, 0.5, 2.08165e-12)
 debug_shape_custom_color = Color(0, 0.894118, 0, 1)
 
-[node name="Control" type="Control" parent="."]
+[node name="UserInterface" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -140,7 +142,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 
-[node name="Reticle" type="CenterContainer" parent="Control" node_paths=PackedStringArray("RETICLE_LINES", "PLAYER_CONTROLLER")]
+[node name="Reticle" type="CenterContainer" parent="UserInterface" node_paths=PackedStringArray("RETICLE_LINES", "PLAYER_CONTROLLER")]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -159,24 +161,41 @@ PLAYER_CONTROLLER = NodePath("../..")
 RETICLE_SPEED = 0.5
 RETICLE_DISTANCE = 6.0
 
-[node name="Top" type="Line2D" parent="Control/Reticle"]
+[node name="Top" type="Line2D" parent="UserInterface/Reticle"]
 position = Vector2(2.08165e-12, 2.08165e-12)
 points = PackedVector2Array(2.08165e-12, -5, 2.08165e-12, -15)
 width = 2.0
 
-[node name="Right" type="Line2D" parent="Control/Reticle"]
+[node name="Right" type="Line2D" parent="UserInterface/Reticle"]
 position = Vector2(2.08165e-12, 2.08165e-12)
 points = PackedVector2Array(5, 2.08165e-12, 15, 2.08165e-12)
 width = 2.0
 
-[node name="Bottom" type="Line2D" parent="Control/Reticle"]
+[node name="Bottom" type="Line2D" parent="UserInterface/Reticle"]
 position = Vector2(2.08165e-12, 2.08165e-12)
 points = PackedVector2Array(2.08165e-12, 5, 2.08165e-12, 15)
 width = 2.0
 
-[node name="Left" type="Line2D" parent="Control/Reticle"]
+[node name="Left" type="Line2D" parent="UserInterface/Reticle"]
 position = Vector2(2.08165e-12, 2.08165e-12)
 points = PackedVector2Array(-5, 2.08165e-12, -15, 2.08165e-12)
 width = 2.0
+
+[node name="DebugPanel" type="PanelContainer" parent="UserInterface"]
+custom_minimum_size = Vector2(200, 2.08165e-12)
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 210.0
+offset_bottom = 50.0
+theme = ExtResource("4_ov56a")
+script = ExtResource("5_i4a1r")
+
+[node name="MarginContainer" type="MarginContainer" parent="UserInterface/DebugPanel"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UserInterface/DebugPanel/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
 
 [connection signal="animation_started" from="AnimationPlayer" to="." method="_on_animation_player_animation_started"]
