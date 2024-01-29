@@ -83,11 +83,13 @@ func _update_camera(delta):
 
 
 func _physics_process(delta):
+	Global.debug.add_property("MovementSpeed", _speed, 1)
+
+	_update_camera(delta)
+
 	# Add the gravity.
 	if not is_on_floor():
 		velocity.y -= gravity * delta
-
-	_update_camera(delta)
 
 	# Handle jump.
 	if Input.is_action_just_pressed("jump") and is_on_floor() and _is_crouching == false:
