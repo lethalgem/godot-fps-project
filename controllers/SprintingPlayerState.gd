@@ -12,6 +12,10 @@ func enter() -> void:
 	ANIMATION.play("Sprinting", 0.5, 1.0)
 
 
+func exit():
+	ANIMATION.speed_scale = 1.0
+
+
 func update(delta):
 	PLAYER.update_gravity(delta)
 	PLAYER.update_input(SPEED, ACCELERATION, DECELERATION)
