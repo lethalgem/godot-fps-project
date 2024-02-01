@@ -7,7 +7,7 @@ extends PlayerMovementState
 @export var DECELERATION: float = 0.25
 
 
-func enter() -> void:
+func enter(previous_state) -> void:
 	ANIMATION.pause()
 
 

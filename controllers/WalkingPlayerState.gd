@@ -8,7 +8,7 @@ extends PlayerMovementState
 @export var TOP_ANIM_SPEED: float = 2.2
 
 
-func enter() -> void:
+func enter(previous_state) -> void:
 	ANIMATION.play("Walking", -1.0, 1.0)
 
 
@@ -27,7 +27,6 @@ func update(delta):
 		transition.emit("SprintingPlayerState")
 
 	if Input.is_action_just_pressed("crouch") and PLAYER.is_on_floor():
-		print("emit")
 		transition.emit("CrouchingPlayerState")
 
 	if PLAYER.velocity.length() == 0.0:

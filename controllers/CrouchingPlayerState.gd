@@ -7,10 +7,20 @@ class_name CrouchingPlayerState extends PlayerMovementState
 
 @onready var CROUCH_SHAPECAST: ShapeCast3D = %ShapeCast3D
 
+var RELEASED: bool = false
 
-func enter():
-	print("entered")
-	ANIMATION.play("Crouch", -1.0, CROUCH_SPEED)
+
+func enter(previous_state) -> void:
+	ANIMATION.speed_scale = 1.0
+	if previous_state.name != "SlidingPlayerState":
+		ANIMATION.play("Crouching", -1.0, CROUCH_SPEED)
+	elif previous_state.name == "SlidingPlayerState":
+		ANIMATION.current_animation = "Crouching"
+		ANIMATION.seek(1.0, true)
+
+
+func exit() -> void:
+	RELEASED = false
 
 
 func update(delta):
@@ -20,14 +30,14 @@ func update(delta):
 
 	if Input.is_action_just_released("crouch"):
 		uncrouch()
+	elif Input.is_action_pressed("crouch") == false and RELEASED == false:  # When not holding crouch, set crouch_released to true. Then trigger uncrouch.
+		RELEASED = true
+		uncrouch()
 
 
 func uncrouch():
-	print("checking for uncrouching")
-	print(Input.is_action_pressed("crouch"))
 	if CROUCH_SHAPECAST.is_colliding() == false and Input.is_action_pressed("crouch") == false:
-		print("uncrouching")
-		ANIMATION.play("Crouch", -1.0, -CROUCH_SPEED * 1.5, true)
+		ANIMATION.play("Crouching", -1.0, -CROUCH_SPEED * 1.5, true)
 		if ANIMATION.is_playing():
 			await ANIMATION.animation_finished
 		transition.emit("IdlePlayerState")

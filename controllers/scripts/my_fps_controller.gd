@@ -15,6 +15,7 @@ var _rotation_input: float
 var _tilt_input: float
 var _player_rotation: Vector3
 var _camera_rotation: Vector3
+var _current_rotation: float
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
@@ -45,6 +46,7 @@ func _unhandled_input(event):
 
 func _update_camera(delta):
 	# Rotate camera using euler rotation
+	_current_rotation = _rotation_input
 	_mouse_rotation.x += _tilt_input * delta
 	_mouse_rotation.x = clamp(_mouse_rotation.x, TILT_LOWER_LIMIT, TILT_UPPER_LIMIT)
 	_mouse_rotation.y += _rotation_input * delta
