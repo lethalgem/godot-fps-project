@@ -8,7 +8,11 @@ extends PlayerMovementState
 
 
 func enter(previous_state) -> void:
-	ANIMATION.pause()
+	if ANIMATION.is_playing() and ANIMATION.current_animation == "JumpEnd":
+		await ANIMATION.animation_finished
+		ANIMATION.pause()
+	else:
+		ANIMATION.pause()
 
 
 func update(delta):
