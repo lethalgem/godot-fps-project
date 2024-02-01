@@ -17,8 +17,7 @@ var _player_rotation: Vector3
 var _camera_rotation: Vector3
 var _current_rotation: float
 
-# Get the gravity from the project settings to be synced with RigidBody nodes.
-var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
+var gravity = 12.0
 
 
 func _input(event):
